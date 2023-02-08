@@ -1,7 +1,7 @@
 # SodokuSolver
 Will automatically solve any unsolved and possible 9x9 sodoku puzzle.
 
-This is accomplished by:
+## This is accomplished by:
 
 #### INITIAL:
 1. Finding an empty tile. (if no tile is found, board is already solved)
