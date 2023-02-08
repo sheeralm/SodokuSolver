@@ -95,7 +95,8 @@ bool tryTile(int row, int col, int num) {
 
 // Recursive board solver
 bool solveBoard() {
-    // 
+    // initialize row & col here so isComplete() can modify
+    // these variables (pass by reference)
     int row, col;
 
     // Check for complete board
@@ -103,10 +104,17 @@ bool solveBoard() {
         return true;
     }
     
-    //Run through all numbers on board
+    // Run through all possible numbers (1-9) for the given tile from isComplete()
     for(int num = 1; num <= 9; num++) {
+        // Tests tile with given number. If fits, enter number, otherwise, iterate and try another
         if(tryTile(row, col, num)) {
             board[row][col] = num;
+           
+            // Recurses until board is solved. This means:
+            //  - all recursions return true down to first recursion
+            //  - there are no return false
+            //  - if any solveBoard() call returns false, that means the board is impossible,
+            //    so all recursions will return false until back at the original state
             if(solveBoard()) {
                 return true;
             }
@@ -116,6 +124,7 @@ bool solveBoard() {
     return false;
 }
 
+// Prints out a pretty version of the board
 void printBoard() {
     for(int col = 0; col < 9; col++) {
         if((col%3) == 0) {
@@ -133,6 +142,7 @@ void printBoard() {
 }
 
 int main() {
+    // solveBoard() returns true if successful, so that is utilized to return the board or failure to the user
     if(solveBoard()){
         printBoard();
     }
